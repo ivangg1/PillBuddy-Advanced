@@ -2,7 +2,8 @@ package com.grupoX.PillBuddy.controller;
 
 
 import com.grupoX.PillBuddy.model.Usuario;
-import com.grupoX.PillBuddy.service.UsuarioService;
+import com.grupoX.PillBuddy.model.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

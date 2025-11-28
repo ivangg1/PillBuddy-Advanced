@@ -1,8 +1,6 @@
-package com.grupoX.PillBuddy.service;
+package com.grupoX.PillBuddy.model;
 
 
-import com.grupoX.PillBuddy.model.Usuario;
-import com.grupoX.PillBuddy.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

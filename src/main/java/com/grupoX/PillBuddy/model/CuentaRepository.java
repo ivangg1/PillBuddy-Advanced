@@ -7,6 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface CuentaRepository extends JpaRepository<Cuenta, Long> {
-    // Método clave para el Login
+    //para el Login
     Optional<Cuenta> findByUsername(String username);
 }
