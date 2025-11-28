@@ -1,7 +1,6 @@
-package com.grupoX.PillBuddy.repository;
+package com.grupoX.PillBuddy.model;
 
 
-import com.grupoX.PillBuddy.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
