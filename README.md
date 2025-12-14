@@ -1,6 +1,6 @@
-# PillBuddy - Sistema de Gestión de Usuarios
+# PillBuddy 
 
-## 📋 Descripción del Proyecto
+##  Descripción del proyecto
 
 **PillBuddy** es una aplicación web desarrollada con **Spring Boot 3.5.8** y **Java 21** que implementa un sistema completo de gestión de usuarios (CRUD) con interfaz web interactiva y API REST. El proyecto está orientado a funcionar como base para un dispensador inteligente de medicamentos.
 
@@ -224,7 +224,7 @@ Tabla: usuarios
 
 ---
 
-### 🖼️ Capa de Vista (Thymeleaf Templates)
+###  Capa de vista (Thymeleaf Templates)
 
 #### `usuarios.html`
 - **Ruta**: `/usuarios` (GET)
@@ -274,7 +274,7 @@ Tabla: usuarios
 
 ---
 
-## 🔄 Flujo de Funcionamiento
+## Flujo de funcionamiento
 
 ### 🌐 Flujo Web (MVC - Interfaz Visual)
 
@@ -294,93 +294,13 @@ Tabla: usuarios
 5. El servicio guarda en BD vía `usuarioRepository.save()`.
 6. Redirige a `/usuarios` (se actualiza la lista).
 
----
 
-### 🔌 Flujo API REST (JSON)
 
-1. **Cliente (Postman/curl/app móvil) hace petición**: 
-   ```http
-   POST http://localhost:8080/api/usuarios
-   Content-Type: application/json
-   
-   {
-     "username": "maria",
-     "password": "abc123",
-     "nombre": "Maria Gomez",
-     "edad": 28
-   }
-   ```
-2. `UsuarioController.crearUsuario(@RequestBody Usuario usuario)` recibe el JSON.
-3. Spring deserializa el JSON a objeto `Usuario`.
-4. Llama a `usuarioService.registrarUsuario(usuario)`.
-5. El servicio guarda en BD.
-6. Retorna el objeto `Usuario` creado (con ID asignado) en formato JSON.
 
----
 
-## ⚙️ Configuración (`application.properties`)
 
-```properties
-# Nombre de la aplicación
-spring.application.name=PillBuddy
 
-# Base de datos H2 en modo archivo
-spring.datasource.url=jdbc:h2:file:./database
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=
-
-# JPA/Hibernate
-spring.jpa.hibernate.ddl-auto=update       # Crea/actualiza tablas automáticamente
-spring.jpa.show-sql=true                   # Muestra SQL en logs
-
-# Consola H2 (admin de BD en navegador)
-spring.h2.console.enabled=true
-spring.h2.console.path=/h2                 # Acceso en http://localhost:8080/h2
-
-# Soporte para métodos DELETE/PUT en Thymeleaf
-spring.mvc.hiddenmethod.filter.enabled=true
-```
-
-**Características clave:**
-- **Base de datos**: H2 embebida, archivo `./database.mv.db` en la raíz del proyecto.
-- **Consola H2**: Accesible en `http://localhost:8080/h2` (usuario: `sa`, contraseña vacía, JDBC URL: `jdbc:h2:file:./database`).
-- **Puerto**: 8080 (por defecto, no especificado).
-
----
-
-## 🚀 Cómo Ejecutar el Proyecto
-
-### Requisitos Previos
-- **Java 21** instalado.
-- **Maven** (o usar el wrapper incluido `mvnw`/`mvnw.cmd`).
-
-### Opción 1: Ejecutar con Maven Wrapper (recomendado)
-
-**En PowerShell (Windows):**
-```powershell
-# Navegar a la raíz del proyecto
-cd C:\Users\ivang\Documents\PillBuddy-Advanced
-
-# Ejecutar la aplicación
-.\mvnw.cmd spring-boot:run
-```
-
-La aplicación arrancará en: **http://localhost:8080**
-
-### Opción 2: Empaquetar y ejecutar JAR
-
-```powershell
-# Compilar y empaquetar (sin tests)
-.\mvnw.cmd -DskipTests package
-
-# Ejecutar el JAR generado
-java -jar .\target\PillBuddy-0.0.1-SNAPSHOT.jar
-```
-
----
-
-## 🌐 URLs y Endpoints Disponibles
+##  URLs 
 
 ### Interfaz Web (HTML)
 | URL | Descripción |
@@ -390,7 +310,7 @@ java -jar .\target\PillBuddy-0.0.1-SNAPSHOT.jar
 | `http://localhost:8080/usuarios/editar/{id}` | Formulario para editar usuario |
 | `http://localhost:8080/usuarios/eliminar/{id}` | Eliminar usuario (redirige a lista) |
 
-### API REST (JSON)
+### API REST 
 | Método | URL | Descripción |
 |--------|-----|-------------|
 | `GET` | `http://localhost:8080/api/usuarios` | Obtener todos los usuarios |
@@ -430,92 +350,11 @@ Invoke-RestMethod -Uri http://localhost:8080/api/usuarios -Method Get
 Start-Process "http://localhost:8080/usuarios"
 ```
 
----
 
-## 📊 Diagrama de Relaciones entre Clases
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                   CONTROLLERS LAYER                         │
-│  ┌─────────────────────┐      ┌──────────────────────┐     │
-│  │UsuarioWebController │      │  UsuarioController   │     │
-│  │   (@Controller)     │      │  (@RestController)   │     │
-│  │                     │      │                      │     │
-│  │ /usuarios           │      │ /api/usuarios        │     │
-│  └──────────┬──────────┘      └──────────┬───────────┘     │
-└─────────────┼─────────────────────────────┼─────────────────┘
-              │                             │
-              ├─────────────────────────────┤
-              ▼                             ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   SERVICE LAYER                             │
-│  ┌──────────────────────┐      ┌──────────────────────┐    │
-│  │   UsuarioService     │      │   CuentaService      │    │
-│  │    (@Service)        │      │    (@Service)        │    │
-│  └──────────┬───────────┘      └──────────┬───────────┘    │
-└─────────────┼──────────────────────────────┼────────────────┘
-              │                              │
-              ├──────────────────────────────┤
-              ▼                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                  REPOSITORY LAYER                           │
-│  ┌──────────────────────┐      ┌──────────────────────┐    │
-│  │  UsuarioRepository   │      │  CuentaRepository    │    │
-│  │   (JpaRepository)    │      │   (JpaRepository)    │    │
-│  └──────────┬───────────┘      └──────────┬───────────┘    │
-└─────────────┼──────────────────────────────┼────────────────┘
-              │                              │
-              ├──────────────────────────────┤
-              ▼                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    ENTITY LAYER                             │
-│  ┌──────────────────────┐      ┌──────────────────────┐    │
-│  │      Usuario         │─────▶│      Cuenta          │    │
-│  │     (@Entity)        │      │  (@Entity, abstract) │    │
-│  │                      │      │                      │    │
-│  │ + nombre: String     │      │ + id: Long           │    │
-│  │ + edad: int          │      │ + username: String   │    │
-│  │                      │      │ + password: String   │    │
-│  └──────────────────────┘      └──────────────────────┘    │
-│            ▲                             ▲                  │
-│            └─────────────────────────────┘                  │
-│                   (Herencia JOINED)                         │
-└─────────────────────────────────────────────────────────────┘
-```
+##  Gestión de Base de Datos
 
-**Leyenda de relaciones:**
-- `UsuarioWebController` → `UsuarioService` (inyección `@Autowired`)
-- `UsuarioController` → `UsuarioService` (inyección `@Autowired`)
-- `UsuarioService` → `UsuarioRepository` (inyección `@Autowired`)
-- `CuentaService` → `CuentaRepository` (inyección `@Autowired`)
-- `Usuario` → `Cuenta` (herencia, `extends`)
 
----
-
-## 🗂️ Gestión de Base de Datos
-
-### Tablas Creadas Automáticamente
-
-Cuando ejecutas la app, Hibernate crea automáticamente (gracias a `spring.jpa.hibernate.ddl-auto=update`):
-
-**Tabla `cuentas`:**
-```sql
-CREATE TABLE cuentas (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
-);
-```
-
-**Tabla `usuarios`:**
-```sql
-CREATE TABLE usuarios (
-    cuenta_id BIGINT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    edad INT,
-    FOREIGN KEY (cuenta_id) REFERENCES cuentas(id)
-);
-```
 
 ### Acceder a la Consola H2
 
@@ -539,92 +378,3 @@ El archivo `.gitignore` incluye:
 ```
 Esto evita que los archivos de base de datos locales se suban al repositorio.
 
-
-## 📝 Comandos Útiles
-
-### Compilar el proyecto
-```powershell
-.\mvnw.cmd clean compile
-```
-
-### Ejecutar tests
-```powershell
-.\mvnw.cmd test
-```
-
-### Empaquetar sin tests
-```powershell
-.\mvnw.cmd -DskipTests package
-```
-
-### Limpiar archivos generados
-```powershell
-.\mvnw.cmd clean
-```
-
-### Ver dependencias
-```powershell
-.\mvnw.cmd dependency:tree
-```
-
----
-
-## 🤝 Contribuciones
-
-Este proyecto está en desarrollo activo. Para contribuir:
-
-1. Fork el repositorio.
-2. Crea una rama con tu feature: `git checkout -b feature/nueva-funcionalidad`
-3. Haz commit de tus cambios: `git commit -m "Añadir nueva funcionalidad"`
-4. Push a la rama: `git push origin feature/nueva-funcionalidad`
-5. Abre un Pull Request.
-
----
-
-## 📄 Licencia
-
-Este proyecto es de uso educativo/académico para el **Grupo X**.
-
----
-
-## 👥 Autores
-
-- **Grupo X** - Proyecto PillBuddy Advanced
-
----
-
-## 🐛 Resolución de Problemas
-
-### Error: "Puerto 8080 en uso"
-```powershell
-# Cambiar puerto temporalmente
-$env:SERVER_PORT='9090'; .\mvnw.cmd spring-boot:run
-```
-
-### Error: "Cannot find JDK"
-Asegúrate de tener `JAVA_HOME` configurado apuntando a JDK 21:
-```powershell
-$env:JAVA_HOME='C:\Program Files\Java\jdk-21'
-.\mvnw.cmd spring-boot:run
-```
-
-### La base de datos está vacía
-La BD se crea automáticamente. Para añadir usuarios:
-- Usa la interfaz web: `http://localhost:8080/usuarios/nuevo`
-- O envía un POST a `/api/usuarios` con JSON.
-
-### No se muestran datos en `usuarios.html`
-Verifica:
-1. Que la app esté corriendo.
-2. Que accedas vía `http://localhost:8080/usuarios` (no abriendo el archivo HTML directamente).
-3. Que haya usuarios en la BD (revisa en `/h2` o crea uno nuevo).
-
----
-
-## 📞 Contacto y Soporte
-
-Para preguntas o issues, abre un ticket en el repositorio de GitHub o contacta al equipo de desarrollo.
-
----
-
-**¡Gracias por usar PillBuddy! 💊🤖**
