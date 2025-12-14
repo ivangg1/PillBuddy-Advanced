@@ -13,39 +13,38 @@ public class UsuarioWebController {
     @Autowired
     private UsuarioService usuarioService;
 
-    // 1. Mostrar la lista de usuarios
+    //Mostrar la lista de usuarios
     @GetMapping("/usuarios")
     public String listarUsuarios(Model model) {
         model.addAttribute("listaUsuarios", usuarioService.listarUsuarios());
-        return "usuarios"; // Busca el archivo usuarios.html
+        return "usuarios"; 
     }
 
-    // 2. Mostrar formulario para crear un nuevo usuario
+    //Mostrar formulario para crear un nuevo usuario
     @GetMapping("/usuarios/nuevo")
     public String mostrarFormularioNuevo(Model model) {
         Usuario usuario = new Usuario();
         model.addAttribute("usuario", usuario);
-        return "formulario_usuario"; // Busca formulario_usuario.html
+        return "formulario_usuario";
     }
 
-    // 3. Guardar usuario (Crear o Actualizar)
+    //Guardar usuario (Crear o Actualizar)
     @PostMapping("/usuarios/guardar")
     public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario) {
         usuarioService.registrarUsuario(usuario);
-        return "redirect:/usuarios"; // Redirige a la lista
+        return "redirect:/usuarios"; 
     }
 
-    // 4. Mostrar formulario para editar
+    //Mostrar formulario para editar
     @GetMapping("/usuarios/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
-        // Buscamos el usuario, si existe lo pasamos al modelo
         usuarioService.obtenerPorId(id).ifPresent(usuario -> {
             model.addAttribute("usuario", usuario);
         });
-        return "formulario_usuario"; // Reutilizamos el mismo formulario
+        return "formulario_usuario"; 
     }
 
-    // 5. Eliminar usuario
+    //Eliminar usuario
     @GetMapping("/usuarios/eliminar/{id}")
     public String eliminarUsuario(@PathVariable Long id) {
         usuarioService.eliminarUsuario(id);
