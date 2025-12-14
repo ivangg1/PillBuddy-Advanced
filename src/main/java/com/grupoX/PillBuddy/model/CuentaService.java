@@ -11,12 +11,10 @@ public class CuentaService {
     @Autowired
     private CuentaRepository cuentaRepository;
 
-    // Lógica para Login
     public Optional<Cuenta> buscarPorUsername(String username) {
         return cuentaRepository.findByUsername(username);
     }
 
-    // Lógica para RF5
     public boolean cambiarPassword(Long idCuenta, String nuevaPassword) {
         Optional<Cuenta> cuentaOpt = cuentaRepository.findById(idCuenta);
         if (cuentaOpt.isPresent()) {

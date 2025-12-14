@@ -283,7 +283,7 @@ Tabla: usuarios
 
 ---
 
-## URLs y Endpoints Disponibles
+## URLs 
 
 ### Interfaz Web (HTML)
 | URL | Descripción |
