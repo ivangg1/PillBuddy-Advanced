@@ -4,101 +4,8 @@
 
 **PillBuddy** es una aplicación web desarrollada con **Spring Boot 3.5.8** y **Java 21** que implementa un sistema completo de gestión de usuarios (CRUD) con interfaz web interactiva y API REST. El proyecto está orientado a funcionar como base para un dispensador inteligente de medicamentos.
 
----
 
-## 🏗️ Arquitectura del Proyecto
-
-El proyecto sigue el patrón **MVC (Model-View-Controller)** con arquitectura en capas:
-
-```
-┌─────────────────────────────────────────────┐
-│          CAPA DE PRESENTACIÓN               │
-│  - Vistas Thymeleaf (usuarios.html,         │
-│    formulario_usuario.html)                 │
-│  - Controllers (Web + REST)                 │
-└──────────────────┬──────────────────────────┘
-                   │
-┌──────────────────▼──────────────────────────┐
-│          CAPA DE NEGOCIO                    │
-│  - UsuarioService                           │
-│  - CuentaService                            │
-└──────────────────┬──────────────────────────┘
-                   │
-┌──────────────────▼──────────────────────────┐
-│          CAPA DE PERSISTENCIA               │
-│  - UsuarioRepository (JPA)                  │
-│  - CuentaRepository (JPA)                   │
-└──────────────────┬──────────────────────────┘
-                   │
-┌──────────────────▼──────────────────────────┐
-│          BASE DE DATOS H2                   │
-│  - Tablas: cuentas, usuarios                │
-│  - Estrategia: JOINED inheritance           │
-└─────────────────────────────────────────────┘
-```
-
----
-
-## 📦 Tecnologías Utilizadas
-
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| **Java** | 21 | Lenguaje de programación |
-| **Spring Boot** | 3.5.8 | Framework principal |
-| **Spring Data JPA** | (incluido) | ORM y persistencia |
-| **Spring Web** | (incluido) | API REST y MVC |
-| **Thymeleaf** | (incluido) | Motor de plantillas HTML |
-| **H2 Database** | (runtime) | Base de datos embebida |
-| **Bootstrap** | 5.3.0 | Framework CSS para UI |
-| **Maven** | 3.x | Gestor de dependencias |
-
----
-
-## 📂 Estructura de Directorios
-
-```
-PillBuddy-Advanced/
-│
-├── src/
-│   ├── main/
-│   │   ├── java/com/grupoX/PillBuddy/
-│   │   │   ├── PillBuddyApplication.java       # Clase principal de Spring Boot
-│   │   │   ├── ServletInitializer.java         # Configuración para WAR deployment
-│   │   │   │
-│   │   │   ├── controller/
-│   │   │   │   ├── UsuarioController.java      # API REST (/api/usuarios)
-│   │   │   │   └── UsuarioWebController.java   # Controlador MVC (/usuarios)
-│   │   │   │
-│   │   │   └── model/
-│   │   │       ├── Cuenta.java                 # Entidad padre (abstracta)
-│   │   │       ├── CuentaRepository.java       # Repositorio JPA de Cuenta
-│   │   │       ├── CuentaService.java          # Lógica de negocio de Cuenta
-│   │   │       ├── Usuario.java                # Entidad Usuario (hereda de Cuenta)
-│   │   │       ├── UsuarioRepository.java      # Repositorio JPA de Usuario
-│   │   │       └── UsuarioService.java         # Lógica de negocio de Usuario
-│   │   │
-│   │   └── resources/
-│   │       ├── application.properties          # Configuración de la app
-│   │       └── templates/
-│   │           ├── usuarios.html               # Vista: lista de usuarios
-│   │           └── formulario_usuario.html     # Vista: formulario crear/editar
-│   │
-│   └── test/
-│       └── java/com/grupoX/PillBuddy/
-│           └── PillBuddyApplicationTests.java  # Tests unitarios
-│
-├── target/                                     # Archivos compilados (ignorado)
-├── database.mv.db                              # Base de datos H2 (ignorado en Git)
-├── pom.xml                                     # Configuración Maven
-├── mvnw, mvnw.cmd                              # Maven Wrapper
-└── README.md                                   # Este archivo
-```
-
----
-
-## 🧩 Clases Principales y sus Responsabilidades
-
-### 🎯 Capa de Inicio
+## Clases principales 
 
 #### `PillBuddyApplication.java`
 ```java
@@ -109,7 +16,7 @@ public class PillBuddyApplication {
     }
 }
 ```
-- **Responsabilidad**: Punto de entrada de la aplicación Spring Boot.
+
 - **Función**: Arranca el servidor embebido Tomcat y configura el contexto de Spring.
 
 #### `ServletInitializer.java`
@@ -126,7 +33,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
 ---
 
-### 🎨 Capa de Presentación (Controllers)
+### Controllers
 
 #### `UsuarioWebController.java` (Controlador MVC)
 - **Anotación**: `@Controller`
@@ -144,7 +51,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 | `eliminarUsuario()` | `GET /usuarios/eliminar/{id}` | Elimina usuario y redirige a lista |
 
 **Relaciones:**
-- Inyecta `UsuarioService` para operaciones de negocio.
+- Inyecta `UsuarioService`.
 - Retorna nombres de vistas que Thymeleaf resuelve en `/templates/`.
 
 ---
@@ -180,11 +87,11 @@ Invoke-RestMethod -Uri http://localhost:8080/api/usuarios -Method Get
 
 ---
 
-### 🧠 Capa de Negocio (Services)
+### Services
 
 #### `UsuarioService.java`
 - **Anotación**: `@Service`
-- **Responsabilidad**: Contiene la **lógica de negocio** para operaciones CRUD de usuarios.
+- **Responsabilidad**: Contiene operaciones CRUD de usuarios.
 
 **Métodos:**
 
@@ -210,16 +117,16 @@ Invoke-RestMethod -Uri http://localhost:8080/api/usuarios -Method Get
 
 | Método | Descripción |
 |--------|-------------|
-| `buscarPorUsername(String)` | Busca una cuenta por username (para login) |
+| `buscarPorUsername(String)` | Busca una cuenta por username|
 | `cambiarPassword(Long, String)` | Cambia la contraseña de una cuenta |
 
 **Relaciones:**
 - Inyecta `CuentaRepository`.
-- Preparado para implementar login/autenticación (pendiente).
+
 
 ---
 
-### 💾 Capa de Persistencia (Repositories)
+### Repositories
 
 #### `UsuarioRepository.java`
 ```java
