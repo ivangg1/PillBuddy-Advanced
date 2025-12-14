@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### H2 / local database files - do not commit ###
+# H2 file-mode creates files like `database.mv.db`, `database.trace.db` or older `database.h2.db`.
+# Ignore any file that starts with `database` in project root and common H2 DB extensions.
+/database*
+*.mv.db
+*.h2.db
+*.trace.db
+
