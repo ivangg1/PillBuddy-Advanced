@@ -526,7 +526,7 @@ CREATE TABLE usuarios (
    - **Username**: `sa`
    - **Password**: (dejar vacío)
 4. Hacer clic en "Connect".
-5. Puedes ejecutar queries SQL, ver tablas, etc.
+
 
 ### Archivos de BD Ignorados en Git
 
@@ -539,23 +539,6 @@ El archivo `.gitignore` incluye:
 ```
 Esto evita que los archivos de base de datos locales se suban al repositorio.
 
----
-
-## 🛠️ Mejoras Futuras y Funcionalidades Pendientes
-
-- [ ] **Autenticación y Autorización**: Implementar Spring Security para login real.
-- [ ] **Encriptación de contraseñas**: Usar `BCryptPasswordEncoder`.
-- [ ] **Validación de datos**: Añadir `@Valid` y anotaciones JSR-303 (`@NotBlank`, `@Size`, etc.).
-- [ ] **Gestión de medicamentos**: Crear entidades `Medicamento`, `Prescripcion`, etc.
-- [ ] **Recordatorios**: Integrar sistema de notificaciones/alarmas.
-- [ ] **API de integración con hardware**: Endpoints para controlar el dispensador físico.
-- [ ] **Tests unitarios e integración**: Usar JUnit 5, Mockito, MockMvc.
-- [ ] **Dockerización**: Crear `Dockerfile` para contenedores.
-- [ ] **CI/CD**: Pipeline con GitHub Actions.
-- [ ] **Frontend moderno**: Migrar a React/Vue/Angular para SPA.
-- [ ] **Swagger/OpenAPI**: Documentación automática de la API REST.
-
----
 
 ## 📝 Comandos Útiles
 
