@@ -5,8 +5,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "usuarios")
 @PrimaryKeyJoinColumn(name = "cuenta_id") 
-public class Usuario extends Cuenta { 
-
+public class Usuario extends Cuenta 
+{ 
+    
     @Column(nullable = false)
     private String nombre;
 
