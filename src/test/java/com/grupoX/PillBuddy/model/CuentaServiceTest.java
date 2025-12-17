@@ -35,7 +35,7 @@ class CuentaServiceTest {
     }
 
     @Test
-    @DisplayName("Cambiar password exitosamente")
+    @DisplayName("Cambiar contraseña exitosamente")
     void cambiarPassword_Exito() {
         Long id = 1L;
         Usuario cuenta = new Usuario();
